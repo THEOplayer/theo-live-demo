@@ -14,7 +14,7 @@ This project will demonstrate how to use THEOlive for web. if you have any quest
 
 This project has been built with
 
-- NPM v18 
+- NPM v18
 - Vite v4
 - Typescript v5
 
