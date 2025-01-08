@@ -6,7 +6,8 @@ This project falls under the license as defined [here](https://github.com/THEOpl
 
 ## Introduction
 
-This project will demonstrate how to use THEOlive for web. if you have any questions please contact support-portal@theoplayer.com
+This project contains the source for the THEOlive demo hosted at https://demo.theo.live
+
 
 ## Quick start
 
@@ -24,4 +25,4 @@ You can build and run this project using `npm run dev`. There is nothing else th
 
 ## Production
 
-To run THEOPlayer in production you will need a valid license set up to run on your domain, you can get it for free on the [THEOlive console](http://console.theo.live/).
+To run THEOPlayer in production you will need a valid license set up to run on your domain. [Contact us](https://www.theoplayer.com/contact-us) to know more.
