@@ -8,7 +8,6 @@ This project falls under the license as defined [here](https://github.com/THEOpl
 
 This project contains the source for the THEOlive demo hosted at https://demo.theo.live
 
-
 ## Quick start
 
 ### Pre-requisites
