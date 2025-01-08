@@ -5,6 +5,8 @@
 -->
 
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import Player from '$lib/Player.svelte'
 	import Timeline from '$lib/Timeline.svelte'
 
@@ -14,12 +16,16 @@
 	import Stats from '$lib/Stats.svelte'
 
 	let player: Player | undefined
-	let channelId: string | undefined
-	$: channelId = browser ? $page.url.searchParams.get('channel')! : undefined
+	let channelId: string | undefined = $state()
+	run(() => {
+		channelId = browser ? $page.url.searchParams.get('channel')! : undefined
+	});
 
-	$: if (browser && !channelId) {
-		goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
-	}
+	run(() => {
+		if (browser && !channelId) {
+			goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
+		}
+	});
 </script>
 
 <main class="container-fluid">

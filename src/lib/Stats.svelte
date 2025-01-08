@@ -1,16 +1,22 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte'
 	import { Player, version } from 'theoplayer'
 	import Page from '../routes/+page.svelte'
 
-	export let channel: string | undefined
-	let player: Player | undefined
+	let player: Player | undefined = $state()
 
-	let qualities: string[] = []
-	let activeQuality: string | undefined
-	let className = ''
-	let latency: string | undefined = '0'
-	export { className as class }
+	let qualities: string[] = $state([])
+	let activeQuality: string | undefined = $state()
+	interface Props {
+		channel: string | undefined;
+		class?: string;
+	}
+
+	let { channel, class: className = '' }: Props = $props();
+	let latency: string | undefined = $state('0')
+	
 
 	onMount(() => {
 		if (window.player) player = window.player
@@ -22,18 +28,20 @@
 		return () => clearInterval(interval)
 	})
 
-	$: if (player) {
-		const { videoTracks } = player as any
-		videoTracks.addEventListener('addtrack', ({ track }: any) => {
-			qualities = track.qualities.map((q: any) => q.id)
-			track.addEventListener('activequalitychanged', ({ quality }: any) => {
-				activeQuality = quality?.id
+	run(() => {
+		if (player) {
+			const { videoTracks } = player as any
+			videoTracks.addEventListener('addtrack', ({ track }: any) => {
+				qualities = track.qualities.map((q: any) => q.id)
+				track.addEventListener('activequalitychanged', ({ quality }: any) => {
+					activeQuality = quality?.id
+				})
 			})
-		})
-		videoTracks.addEventListener('removetrack', () => {
-			qualities = []
-		})
-	}
+			videoTracks.addEventListener('removetrack', () => {
+				qualities = []
+			})
+		}
+	});
 </script>
 
 <article class="{className} translucent">

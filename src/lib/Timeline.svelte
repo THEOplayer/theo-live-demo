@@ -3,10 +3,14 @@
 	import { Chart } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
 
-	let canvasElement: HTMLCanvasElement
-	let className = ''
+	let canvasElement: HTMLCanvasElement = $state()
+	interface Props {
+		class?: string;
+	}
+
+	let { class: className = '' }: Props = $props();
 	let chart: Chart<'bar', number[], Date> | undefined
-	export { className as class }
+	
 	onMount(() => {
 		const intervalID = setInterval(() => {
 			if (!chart) return
@@ -75,5 +79,5 @@
 
 <article class={className}>
 	<h2>Latencies</h2>
-	<canvas bind:this={canvasElement} />
+	<canvas bind:this={canvasElement}></canvas>
 </article>

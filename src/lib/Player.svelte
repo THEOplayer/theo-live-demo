@@ -4,8 +4,12 @@
 	import { LICENSE } from '$lib/license'
 	import 'theoplayer/ui.css'
 
-	export let channel: string | undefined
-	let playerElement: HTMLElement | undefined
+	interface Props {
+		channel: string | undefined;
+	}
+
+	let { channel }: Props = $props();
+	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
 	onMount(() => {
