@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import type { Player } from 'theoplayer'
 	import { Chart } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
 
 	let canvasElement: HTMLCanvasElement
 	let className = ''
 	let chart: Chart<'bar', number[], Date> | undefined
-	let player: Player | undefined
 	export { className as class }
 	onMount(() => {
 		const intervalID = setInterval(() => {
