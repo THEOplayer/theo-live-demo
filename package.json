@@ -32,10 +32,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@picocss/pico": "^1.5.10",
 		"chart.js": "^4.4.3",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"date-fns": "^3.6.0",
-		"theoplayer": "^8.5.0"
+		"theoplayer": "^8.8.0"
 	}
 }
