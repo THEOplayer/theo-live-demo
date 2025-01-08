@@ -5,12 +5,12 @@
 
 	let canvasElement: HTMLCanvasElement = $state()
 	interface Props {
-		class?: string;
+		class?: string
 	}
 
-	let { class: className = '' }: Props = $props();
+	let { class: className = '' }: Props = $props()
 	let chart: Chart<'bar', number[], Date> | undefined
-	
+
 	onMount(() => {
 		const intervalID = setInterval(() => {
 			if (!chart) return

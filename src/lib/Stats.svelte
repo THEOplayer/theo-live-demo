@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
+	import { run } from 'svelte/legacy'
 
 	import { onMount } from 'svelte'
 	import { Player, version } from 'theoplayer'
@@ -10,13 +10,12 @@
 	let qualities: string[] = $state([])
 	let activeQuality: string | undefined = $state()
 	interface Props {
-		channel: string | undefined;
-		class?: string;
+		channel: string | undefined
+		class?: string
 	}
 
-	let { channel, class: className = '' }: Props = $props();
+	let { channel, class: className = '' }: Props = $props()
 	let latency: string | undefined = $state('0')
-	
 
 	onMount(() => {
 		if (window.player) player = window.player
@@ -41,7 +40,7 @@
 				qualities = []
 			})
 		}
-	});
+	})
 </script>
 
 <article class="{className} translucent">

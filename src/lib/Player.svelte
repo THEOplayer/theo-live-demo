@@ -5,10 +5,10 @@
 	import 'theoplayer/ui.css'
 
 	interface Props {
-		channel: string | undefined;
+		channel: string | undefined
 	}
 
-	let { channel }: Props = $props();
+	let { channel }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
