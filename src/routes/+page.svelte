@@ -5,39 +5,26 @@
 	import { goto } from '$app/navigation'
 	import Stats from '$lib/Stats.svelte'
 
-	let overlayVisible = $state(true)
-
 	let channelId = $derived(
 		browser ? new URLSearchParams(window.location.search).get('channel')! : undefined
 	)
-
-	function handlePause() {
-		overlayVisible = true
-	}
-
-	function handlePlaying() {
-		overlayVisible = false
-	}
 
 	$effect(() => {
 		if (browser && !channelId) {
 			goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
 		}
 	})
-	$effect(() => {
-		console.log(overlayVisible)
-	})
 </script>
 
 <main class="container-fluid">
-	<header class:visible={overlayVisible}>
+	<header>
 		<p class="channel">{channelId}</p>
 		<Timeline />
 	</header>
-	<footer class:visible={overlayVisible}>
+	<footer>
 		<Stats />
 	</footer>
-	<Player channel={channelId} onPause={handlePause} onPlaying={handlePlaying} />
+	<Player channel={channelId} />
 </main>
 
 <style lang="css">
