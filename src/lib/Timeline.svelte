@@ -4,11 +4,7 @@
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
 
 	let canvasElement: HTMLCanvasElement | undefined = $state()
-	interface Props {
-		class?: string
-	}
 
-	let { class: className = '' }: Props = $props()
 	let chart: Chart<'bar', number[], Date> | undefined
 
 	onMount(() => {
@@ -77,7 +73,7 @@
 	})
 </script>
 
-<article class="container {className}">
+<article class="container">
 	<h4>Latencies</h4>
 	<canvas bind:this={canvasElement}></canvas>
 </article>
@@ -85,6 +81,22 @@
 <style>
 	.container {
 		background-color: rgba(255, 255, 255, 0.5);
+		border-radius: 4px;
+		position: fixed;
+		z-index: 1001;
+		opacity: 0.6;
+		top: 0px;
+
+		@media screen and (min-width: 768px) {
+			top: 0px !important;
+			margin: 1em;
+			right: 0 !important;
+		}
+
+		@media screen and (min-width: 0px) {
+			top: 64px;
+			margin-left: 1em;
+		}
 	}
 	h4 {
 		font-size: medium;

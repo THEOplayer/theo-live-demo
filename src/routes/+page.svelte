@@ -6,7 +6,6 @@
 	import Stats from '$lib/Stats.svelte'
 
 	let overlayVisible = $state(true)
-	let player: Player | undefined = $state()
 
 	let channelId = $derived(
 		browser ? new URLSearchParams(window.location.search).get('channel')! : undefined
@@ -33,7 +32,7 @@
 <main class="container-fluid">
 	<header class:visible={overlayVisible}>
 		<p class="channel">{channelId}</p>
-		<Timeline class="timeline" />
+		<Timeline />
 	</header>
 	<footer class:visible={overlayVisible}>
 		<Stats />
@@ -53,6 +52,7 @@
 		position: absolute;
 		left: 0;
 		right: 0;
+		opacity: 0;
 		transition: opacity 0.5s 1s;
 		z-index: 1000;
 	}
@@ -61,7 +61,14 @@
 		display: flex;
 		justify-content: space-between;
 	}
-
+	.channel {
+		position: absolute;
+		opacity: 0.6;
+		font-weight: 400;
+		padding: 4px;
+		border-radius: 4px;
+		margin: 1em;
+	}
 	footer {
 		bottom: 0;
 	}

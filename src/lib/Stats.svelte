@@ -71,6 +71,17 @@
 </table>
 
 <style>
+	.stats {
+		position: fixed;
+		border-radius: 4px;
+		z-index: 1001;
+		bottom: 0;
+		left: 0 !important;
+		opacity: 0.6;
+		margin: 1em;
+		bottom: 2em;
+	}
+
 	table {
 		padding: 1rem;
 	}
