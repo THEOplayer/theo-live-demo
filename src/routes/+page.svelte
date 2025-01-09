@@ -39,8 +39,6 @@
 		position: absolute;
 		left: 0;
 		right: 0;
-		opacity: 0;
-		transition: opacity 0.5s 1s;
 		z-index: 1000;
 	}
 	header {
@@ -58,10 +56,5 @@
 	}
 	footer {
 		bottom: 0;
-	}
-
-	.visible {
-		opacity: 1;
-		transition-delay: 0s; /* Apply fade-in effect immediately without delay */
 	}
 </style>
