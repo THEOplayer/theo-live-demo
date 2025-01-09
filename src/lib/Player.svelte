@@ -15,9 +15,9 @@
 	let player: Player | undefined
 
 	onMount(() => {
-		if (player) return
+		if (player || !playerElement) return
 
-		const newPlayer = new Player(playerElement!, {
+		const newPlayer = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
 			retryConfiguration: { maxRetries: 6 }
