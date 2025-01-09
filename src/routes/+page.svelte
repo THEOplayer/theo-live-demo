@@ -6,6 +6,7 @@
 	import Stats from '$lib/Stats.svelte'
 
 	let overlayVisible = $state(true)
+	let player: Player | undefined = $state()
 
 	let channelId = $derived(
 		browser ? new URLSearchParams(window.location.search).get('channel')! : undefined

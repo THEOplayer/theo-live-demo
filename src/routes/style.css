@@ -13,6 +13,7 @@ body {
 	width: 100%;
 	display: contents;
 	overflow: hidden;
+	color: white;
 }
 
 body {
@@ -50,7 +51,6 @@ body {
 
 .channel {
 	position: absolute;
-	background-color: white;
 	opacity: 0.6;
 	font-weight: 400;
 	padding: 4px;

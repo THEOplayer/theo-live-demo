@@ -84,11 +84,12 @@
 
 <style>
 	.container {
-		background-color: rgba(255, 255, 255, 0.75);
+		background-color: rgba(255, 255, 255, 0.5);
 	}
 	h4 {
 		font-size: medium;
 		font-weight: normal;
 		text-align: center;
+		color: black;
 	}
 </style>

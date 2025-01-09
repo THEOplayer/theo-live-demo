@@ -73,7 +73,6 @@
 <style>
 	table {
 		padding: 1rem;
-		background: rgba(255, 255, 255, 0.9);
 	}
 
 	th {
