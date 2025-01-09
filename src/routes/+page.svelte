@@ -6,7 +6,7 @@
 	import Stats from '$lib/Stats.svelte'
 
 	let channelId = $derived(
-		browser ? new URLSearchParams(window.location.search).get('channel')! : undefined
+		browser ? new URLSearchParams(window.location.search).get('channel') : undefined
 	)
 
 	$effect(() => {
