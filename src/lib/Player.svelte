@@ -6,9 +6,11 @@
 
 	interface Props {
 		channel: string | undefined
+		onPause?: () => void
+		onPlaying?: () => void
 	}
 
-	let { channel }: Props = $props()
+	let { channel, onPause, onPlaying }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
@@ -24,7 +26,12 @@
 		newPlayer.muted = true
 		window.player = newPlayer
 		player = newPlayer
-
+		if (onPause) {
+			newPlayer.addEventListener('pause', onPause)
+		}
+		if (onPlaying) {
+			newPlayer.addEventListener('playing', onPlaying)
+		}
 		player.source = {
 			sources: {
 				src: channel,

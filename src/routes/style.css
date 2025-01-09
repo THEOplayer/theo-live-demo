@@ -1,18 +1,62 @@
 html {
 	font-family: Arial, sans-serif;
-	color: white;
 	box-sizing: border-box;
 }
 
 html,
 body {
 	height: 100%;
+	background: black;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	display: contents;
+	overflow: hidden;
 }
 
 body {
 	position: relative;
 }
+.timeline {
+	border-radius: 4px;
+	position: fixed;
+	z-index: 1001;
+	opacity: 0.6;
+	top: 0px;
 
+	@media screen and (min-width: 768px) {
+		top: 0px !important;
+		margin: 1em;
+		right: 0 !important;
+	}
+
+	@media screen and (min-width: 0px) {
+		top: 64px;
+		margin-left: 1em;
+	}
+}
+
+.stats {
+	position: fixed;
+	border-radius: 4px;
+	z-index: 1001;
+	bottom: 0;
+	left: 0 !important;
+	opacity: 0.6;
+	margin: 1em;
+	bottom: 2em;
+}
+
+.channel {
+	position: absolute;
+	background-color: white;
+	opacity: 0.6;
+	font-weight: 400;
+	padding: 4px;
+	border-radius: 4px;
+	margin: 1em;
+}
 *,
 ::before,
 ::after {

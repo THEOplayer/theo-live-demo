@@ -1,110 +1,86 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy'
+	import { type Latencies, version } from 'theoplayer/chromeless'
 
-	import { onMount } from 'svelte'
-	import { Player, version } from 'theoplayer'
-	import Page from '../routes/+page.svelte'
-
-	let player: Player | undefined = $state()
-
-	let qualities: string[] = $state([])
-	let activeQuality: string | undefined = $state()
-	interface Props {
-		channel: string | undefined
-		class?: string
+	interface Info {
+		rate: number
+		latency?: Latencies
+		quality?: string
+		dimension: string
+		targetLatency: number
 	}
 
-	let { channel, class: className = '' }: Props = $props()
-	let latency: string | undefined = $state('0')
+	let info: Info | null = $state(null)
 
-	onMount(() => {
-		if (window.player) player = window.player
-
-		// Because this keeps on changing, and there's no event listener for this, we need to evaluate this at an interval
-		const interval = setInterval(() => {
-			latency = `${player?.latency?.currentLatency?.toFixed(2) ?? '<1'}s`
-		}, 1000)
-		return () => clearInterval(interval)
-	})
-
-	run(() => {
-		if (player) {
-			const { videoTracks } = player as any
-			videoTracks.addEventListener('addtrack', ({ track }: any) => {
-				qualities = track.qualities.map((q: any) => q.id)
-				track.addEventListener('activequalitychanged', ({ quality }: any) => {
-					activeQuality = quality?.id
-				})
-			})
-			videoTracks.addEventListener('removetrack', () => {
-				qualities = []
-			})
-		}
+	$effect(() => {
+		const intervalId = setInterval(() => {
+			const player = window.player
+			const video = document.querySelector('video[src]') as HTMLVideoElement
+			if (video && player) {
+				info = {
+					rate: video.playbackRate,
+					latency: player.hesp!.latencies,
+					quality: player.videoTracks.item(0).activeQuality?.id,
+					dimension: `${video.clientWidth} x ${video.clientHeight}`,
+					targetLatency: player.latency.currentConfiguration.targetOffset
+				}
+			} else {
+				info = null
+			}
+		}, 100)
+		return () => clearInterval(intervalId)
 	})
 </script>
 
-<article class="{className} translucent">
-	<table>
-		<tbody>
+<table class="stats">
+	<tbody>
+		<tr>
+			<th scope="row">Version</th>
+			<td>{version}</td>
+		</tr>
+		{#if info != null}
 			<tr>
-				<th scope="row">Player version</th>
-				<td>{version ?? ''}</td>
+				<th scope="row">Playback rate</th>
+				<td>{info.rate}</td>
 			</tr>
 			<tr>
-				<th scope="row">Channel</th>
-				<td aria-busy={!channel}>{channel ?? ''}</td>
+				<th scope="row">Engine latency</th>
+				<td>{Math.round(1000 * (info.latency?.engine ?? 0))}</td>
 			</tr>
 			<tr>
-				<th scope="row">Qualities</th>
-				<td class="qualities" aria-busy={qualities.length === 0}>
-					{#each qualities as quality}
-						<div class:selected={quality === activeQuality}>{quality}</div>
-					{/each}
-				</td>
+				<th scope="row">Distribution latency</th>
+				<td>{Math.round(1000 * (info.latency?.distribution ?? 0))}</td>
+			</tr>
+			<tr>
+				<th scope="row">Player latency</th>
+				<td>{Math.round(1000 * (info.latency?.player ?? 0))}</td>
 			</tr>
 			<tr>
 				<th scope="row">Target latency</th>
-				<td>{latency}</td>
+				<td>{Math.round(1000 * info.targetLatency)}</td>
 			</tr>
-		</tbody>
-	</table>
-</article>
+			<tr>
+				<th scope="row">Quality</th>
+				<td>{info.quality}</td>
+			</tr>
+			<tr>
+				<th scope="row">Dimensions</th>
+				<td>{info.dimension}</td>
+			</tr>
+		{/if}
+	</tbody>
+</table>
 
 <style>
-	article {
-		flex: 1 1 200px;
-		padding: 0;
-		overflow: auto;
-	}
-
 	table {
-		margin: 0;
+		padding: 1rem;
+		background: rgba(255, 255, 255, 0.9);
 	}
 
-	.selected {
-		position: relative;
+	th {
+		text-align: left;
 	}
 
-	.selected::before {
-		background: #ffc713;
-		content: '';
-		display: block;
-		border-radius: 4px;
-		height: 3px;
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
-
-	.qualities {
-		display: flex;
-		flex-direction: column;
-		align-items: start;
-		min-height: 2rem;
-		& > div {
-			margin-left: -0.2rem;
-			padding: 0.2rem;
-		}
+	td {
+		text-align: right;
 	}
 </style>

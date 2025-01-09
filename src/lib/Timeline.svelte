@@ -3,7 +3,7 @@
 	import { Chart } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
 
-	let canvasElement: HTMLCanvasElement = $state()
+	let canvasElement: HTMLCanvasElement | undefined = $state()
 	interface Props {
 		class?: string
 	}
@@ -43,7 +43,7 @@
 	})
 
 	onMount(() => {
-		chart = new Chart(canvasElement, {
+		chart = new Chart(canvasElement!, {
 			type: 'bar',
 			data: {
 				labels: [],
@@ -77,7 +77,18 @@
 	})
 </script>
 
-<article class={className}>
-	<h2>Latencies</h2>
+<article class="container {className}">
+	<h4>Latencies</h4>
 	<canvas bind:this={canvasElement}></canvas>
 </article>
+
+<style>
+	.container {
+		background-color: rgba(255, 255, 255, 0.75);
+	}
+	h4 {
+		font-size: medium;
+		font-weight: normal;
+		text-align: center;
+	}
+</style>
