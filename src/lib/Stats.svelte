@@ -76,7 +76,7 @@
 		border-radius: 4px;
 		z-index: 1001;
 		left: 0 !important;
-		opacity: 0.6;
+		background-color: rgba(255,255,255,0.1);
 		margin: 1em;
 		bottom: 2em;
 	}
