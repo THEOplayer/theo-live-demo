@@ -3,11 +3,17 @@
 	import Timeline from '$lib/Timeline.svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
+	
 	import Stats from '$lib/Stats.svelte'
+	import {onMount} from 'svelte'
 
-	let channelId = $derived(
-		browser ? new URLSearchParams(window.location.search).get('channel') : undefined
-	)
+	let channelId : string | undefined = $state(undefined)
+
+	onMount(() => {
+		if(!browser) return
+		const searchParams = new URLSearchParams(window.location.search)
+		channelId = searchParams.get('channel') ?? undefined
+	})
 
 	$effect(() => {
 		if (browser && !channelId) {
