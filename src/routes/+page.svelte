@@ -54,11 +54,11 @@
 	}
 	.channel {
 		position: absolute;
-		opacity: 0.6;
 		font-weight: 400;
 		padding: 4px;
 		border-radius: 4px;
 		margin: 1em;
+		
 	}
 	footer {
 		bottom: 0;

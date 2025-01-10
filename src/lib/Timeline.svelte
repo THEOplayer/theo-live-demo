@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { Chart } from 'chart.js'
+	import { Chart, Ticks } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
+	import Page from '../routes/+page.svelte'
 
 	let canvasElement: HTMLCanvasElement | undefined = $state()
 
@@ -52,7 +53,11 @@
 			options: {
 				responsive: true,
 				plugins: {
-					tooltip: { mode: 'x' }
+					tooltip: { mode: 'x' },
+
+					legend: {
+						display:false
+					}
 				},
 				scales: {
 					x: {
@@ -62,11 +67,16 @@
 							tooltipFormat: 'HH:mm:ss',
 							unit: 'second'
 						},
-						stacked: true
+						stacked: true,
+						ticks : {
+							maxTicksLimit: 10
+						}
 					},
 					y: {
-						stacked: true
-					}
+						stacked: true,
+						beginAtZero: true
+					},
+
 				}
 			}
 		})
@@ -80,21 +90,23 @@
 
 <style>
 	.container {
-		background-color: rgba(255, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.6);
 		border-radius: 4px;
 		position: fixed;
 		z-index: 1001;
-		opacity: 0.6;
 		top: 0px;
+		aspect-ratio: 16/9;
 
 		@media screen and (min-width: 768px) {
+			
+			width: 40%;
 			top: 0px !important;
 			margin: 1em;
 			right: 0 !important;
 		}
 
 		@media screen and (min-width: 0px) {
-			top: 64px;
+			top: 2em;
 			margin-left: 1em;
 		}
 	}
