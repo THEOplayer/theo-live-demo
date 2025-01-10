@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { Chart, Ticks } from 'chart.js'
+	import { Chart } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
-	import Page from '../routes/+page.svelte'
 
 	let canvasElement: HTMLCanvasElement | undefined = $state()
 
