@@ -68,12 +68,16 @@
 						},
 						stacked: true,
 						ticks: {
-							maxTicksLimit: 10
+							maxTicksLimit: 10,
+							color: '#FFF'
 						}
 					},
 					y: {
 						stacked: true,
-						beginAtZero: true
+						beginAtZero: true,
+						ticks: {
+							color: '#FFF'
+						}
 					}
 				}
 			}
@@ -82,13 +86,13 @@
 </script>
 
 <article class="container">
-	<h4>Latencies</h4>
+	<h4 style="color:white">Latencies</h4>
 	<canvas bind:this={canvasElement}></canvas>
 </article>
 
 <style>
 	.container {
-		background-color: rgba(255, 255, 255, 0.6);
+		background-color: rgba(255, 255, 255, 0.15);
 		border-radius: 4px;
 		position: fixed;
 		z-index: 1001;
@@ -96,15 +100,16 @@
 		aspect-ratio: 16/9;
 
 		@media screen and (min-width: 768px) {
-			width: 40%;
+			width: 30%;
 			top: 0px !important;
 			margin: 1em;
 			right: 0 !important;
 		}
 
 		@media screen and (min-width: 0px) {
-			top: 2em;
+			top: 3em;
 			margin-left: 1em;
+			width: 40%;
 		}
 	}
 	h4 {
