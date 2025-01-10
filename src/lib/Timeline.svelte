@@ -56,7 +56,7 @@
 					tooltip: { mode: 'x' },
 
 					legend: {
-						display:false
+						display: false
 					}
 				},
 				scales: {
@@ -68,15 +68,14 @@
 							unit: 'second'
 						},
 						stacked: true,
-						ticks : {
+						ticks: {
 							maxTicksLimit: 10
 						}
 					},
 					y: {
 						stacked: true,
 						beginAtZero: true
-					},
-
+					}
 				}
 			}
 		})
@@ -98,7 +97,6 @@
 		aspect-ratio: 16/9;
 
 		@media screen and (min-width: 768px) {
-			
 			width: 40%;
 			top: 0px !important;
 			margin: 1em;

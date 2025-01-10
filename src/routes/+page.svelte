@@ -3,14 +3,14 @@
 	import Timeline from '$lib/Timeline.svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
-	
-	import Stats from '$lib/Stats.svelte'
-	import {onMount} from 'svelte'
 
-	let channelId : string | undefined = $state(undefined)
+	import Stats from '$lib/Stats.svelte'
+	import { onMount } from 'svelte'
+
+	let channelId: string | undefined = $state(undefined)
 
 	onMount(() => {
-		if(!browser) return
+		if (!browser) return
 		const searchParams = new URLSearchParams(window.location.search)
 		channelId = searchParams.get('channel') ?? undefined
 	})
@@ -58,7 +58,6 @@
 		padding: 4px;
 		border-radius: 4px;
 		margin: 1em;
-		
 	}
 	footer {
 		bottom: 0;

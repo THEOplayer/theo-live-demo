@@ -34,13 +34,13 @@
 	})
 
 	$effect(() => {
-		if (!player) return;
+		if (!player) return
 		player.source = {
 			sources: {
 				src: channel,
 				integration: 'theolive'
 			}
-		};
+		}
 	})
 </script>
 
