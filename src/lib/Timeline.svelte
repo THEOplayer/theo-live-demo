@@ -92,7 +92,7 @@
 
 <style>
 	.container {
-		background-color: rgba(255, 255, 255, 0.15);
+		background-color: rgba(255, 255, 255, 0.5);
 		border-radius: 4px;
 		position: fixed;
 		z-index: 1001;
