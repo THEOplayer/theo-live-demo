@@ -19,6 +19,7 @@ const s3Client = new S3Client({ region: 'eu-west-3' })
 const bucket = args[0]
 const cloudFrontId = args[1]
 const buildFolder = args[2]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const version = (pack as any).version
 const s3Prefix = `${version}/`
 

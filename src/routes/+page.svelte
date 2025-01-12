@@ -3,6 +3,7 @@
 	import Timeline from '$lib/Timeline.svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
+	import { page } from '$app/state'
 
 	import Stats from '$lib/Stats.svelte'
 	import { onMount } from 'svelte'
@@ -11,14 +12,16 @@
 
 	onMount(() => {
 		if (!browser) return
-		const searchParams = new URLSearchParams(window.location.search)
-		channelId = searchParams.get('channel') ?? undefined
+		const searchParams = new URLSearchParams(page.url.searchParams)
+		if (!searchParams.has('channel')) {
+			goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
+		}
 	})
 
 	$effect(() => {
-		if (browser && !channelId) {
-			goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
-		}
+		if (!browser) return
+		const searchParams = new URLSearchParams(page.url.searchParams)
+		channelId = searchParams.get('channel') ?? undefined
 	})
 </script>
 
