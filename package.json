@@ -39,6 +39,7 @@
 		"chart.js": "^4.4.3",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"date-fns": "^3.6.0",
+		"normalize.css": "^8.0.1",
 		"theoplayer": "^8.8.3"
 	}
 }

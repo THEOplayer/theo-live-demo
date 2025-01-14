@@ -31,7 +31,7 @@
 	})
 </script>
 
-<table class="stats">
+<table>
 	<tbody>
 		<tr>
 			<th scope="row">Version</th>
@@ -71,18 +71,10 @@
 </table>
 
 <style>
-	.stats {
-		position: fixed;
-		border-radius: 4px;
-		z-index: 1001;
-		left: 0 !important;
-		background-color: rgb(0, 0, 0);
-		margin: 1em;
-		bottom: 2em;
-	}
-
 	table {
+		background-color: rgb(0, 0, 0, 0.3);
 		padding: 1rem;
+		width: 100%;
 	}
 
 	th {
@@ -91,5 +83,11 @@
 
 	td {
 		text-align: right;
+	}
+
+	@media screen and (min-width: 600px) {
+		table {
+			width: inherit;
+		}
 	}
 </style>

@@ -18,7 +18,10 @@
 		const newPlayer = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
-			retryConfiguration: { maxRetries: 6 }
+			retryConfiguration: { maxRetries: 6 },
+			ui: {
+				fluid: true
+			}
 		})
 		newPlayer.autoplay = true
 		newPlayer.muted = true
@@ -48,7 +51,13 @@
 
 <style>
 	.player-container {
-		height: 100%;
 		width: 100%;
+	}
+
+	@media screen and (min-width: 600px) {
+		.player-container {
+			height: 100%;
+			padding-top: 0;
+		}
 	}
 </style>

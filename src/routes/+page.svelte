@@ -25,44 +25,55 @@
 	})
 </script>
 
-<main class="container-fluid">
+<main>
 	<header>
-		<p class="channel">{channelId}</p>
-		<Timeline />
+		<h1 class="channel">{channelId}</h1>
 	</header>
+	<Player channel={channelId} />
 	<footer>
 		<Stats />
+		<Timeline />
 	</footer>
-	<Player channel={channelId} />
 </main>
 
 <style lang="css">
-	.container-fluid {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		padding: 0px;
-	}
-	header,
-	footer {
-		position: absolute;
-		left: 0;
-		right: 0;
-		z-index: 1000;
-	}
-	header {
-		top: 0;
-		display: flex;
-		justify-content: space-between;
-	}
-	.channel {
-		position: absolute;
+	h1 {
 		font-weight: 400;
-		padding: 4px;
-		border-radius: 4px;
-		margin: 1em;
+		font-size: 1.5rem;
+		margin: 0;
 	}
-	footer {
-		bottom: 0;
+
+	header {
+		padding: 1rem;
+	}
+
+	main {
+		width: 100%;
+	}
+
+	@media screen and (min-width: 600px) {
+		main {
+			height: 100%;
+		}
+
+		header,
+		footer {
+			position: absolute;
+			left: 0;
+			right: 0;
+			z-index: 1;
+		}
+
+		header {
+			top: 0;
+		}
+
+		footer {
+			bottom: 3rem;
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: 1rem;
+		}
 	}
 </style>

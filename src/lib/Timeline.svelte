@@ -51,12 +51,10 @@
 			},
 			options: {
 				responsive: true,
+				maintainAspectRatio: true,
 				plugins: {
 					tooltip: { mode: 'x' },
-
-					legend: {
-						display: false
-					}
+					legend: { display: false }
 				},
 				scales: {
 					x: {
@@ -70,13 +68,20 @@
 						ticks: {
 							maxTicksLimit: 10,
 							color: '#FFF'
+						},
+						grid: {
+							display: false
 						}
 					},
 					y: {
+						border: { display: false },
 						stacked: true,
 						beginAtZero: true,
 						ticks: {
 							color: '#FFF'
+						},
+						grid: {
+							color: 'rgba(255,255,255,.25)'
 						}
 					}
 				}
@@ -85,37 +90,30 @@
 	})
 </script>
 
-<article class="container">
-	<h4 style="color:white">Latencies</h4>
+<section>
+	<h2>Latencies</h2>
 	<canvas bind:this={canvasElement}></canvas>
-</article>
+</section>
 
 <style>
-	.container {
-		background-color: rgb(0, 0, 0);
+	section {
+		background-color: rgb(0, 0, 0, 0.3);
 		border-radius: 4px;
-		position: fixed;
-		z-index: 1001;
-		top: 0px;
-		aspect-ratio: 16/9;
+		padding: 1rem;
+		position: relative;
+	}
 
-		@media screen and (min-width: 768px) {
-			width: 30%;
-			top: 0px !important;
-			margin: 1em;
-			right: 0 !important;
-		}
-
-		@media screen and (min-width: 0px) {
-			top: 3em;
-			margin-left: 1em;
-			width: 40%;
+	@media screen and (min-width: 600px) {
+		section {
+			width: calc(50vw - 2rem);
 		}
 	}
-	h4 {
+
+	h2 {
+		margin: 0;
 		font-size: medium;
 		font-weight: normal;
 		text-align: center;
-		color: black;
+		color: white;
 	}
 </style>
