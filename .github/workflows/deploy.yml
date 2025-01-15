@@ -1,0 +1,29 @@
+name: Deploy on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run deploy command
+        env:
+          BUCKET: ${{ secrets.THEO_LIVE_DEMO_BUCKET }}
+          BUILD_DIR: ${{ secrets.THEO_LIVE_DEMO_BUILD_FOLDER }}
+          CLOUD_FRONT_ID: ${{secrets.THEO_LIVE_DEMO_CLOUD_FRONT_ID}}
+        run: npm run deploy -- "$BUCKET" "$BUILD_DIR" "$CLOUD_FRONT_ID"
