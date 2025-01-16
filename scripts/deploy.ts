@@ -35,9 +35,11 @@ async function assertS3FolderEmpty(): Promise<void> {
 	const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: s3Prefix, MaxKeys: 1 })
 	const response = await s3Client.send(command)
 	assert.equal(undefined, response.Contents, `Bucket folder not empty: ${s3Prefix}`)
+	console.log(`Bucket folder ${s3Prefix} is empty`)
 }
 
 async function getFiles(dir: string): Promise<string[]> {
+	console.log(`reading ${dir}`)
 	const dirFiles = await fs.readdir(dir, { withFileTypes: true })
 	const filePromises = dirFiles.map((file) => {
 		const res = path.resolve(dir, file.name)
