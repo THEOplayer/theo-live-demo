@@ -35,4 +35,4 @@ jobs:
           BUCKET: ${{ vars.THEO_LIVE_DEMO_BUCKET }}
           BUILD_DIR: ${{ vars.THEO_LIVE_DEMO_BUILD_FOLDER }}
           CLOUD_FRONT_ID: ${{secrets.THEO_LIVE_DEMO_CLOUD_FRONT_ID}}
-        run: npm run deploy -- ${BUCKET} ${BUILD_DIR} ${CLOUD_FRONT_ID}
+        run: npm run deploy -- ${BUCKET} ${CLOUD_FRONT_ID} ${BUILD_DIR}
