@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -20,6 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: AWS Auth
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          aws-region: eu-west-3
+          role-to-assume: ${{secrets.THEO_LIVE_AWS_ARN}}
 
       - name: Run deploy command
         env:
