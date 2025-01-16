@@ -18,7 +18,7 @@ const cloudFrontClient = new CloudFrontClient()
 const s3Client = new S3Client({ region: 'eu-west-3' })
 const bucket = args[0]
 const cloudFrontId = args[1]
-const buildFolder = args[2]
+const buildFolder = 'build'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const version = (pack as any).version
 const s3Prefix = `${version}/`
@@ -35,9 +35,11 @@ async function assertS3FolderEmpty(): Promise<void> {
 	const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: s3Prefix, MaxKeys: 1 })
 	const response = await s3Client.send(command)
 	assert.equal(undefined, response.Contents, `Bucket folder not empty: ${s3Prefix}`)
+	console.log(`Bucket folder ${s3Prefix} is empty`)
 }
 
 async function getFiles(dir: string): Promise<string[]> {
+	console.log(`reading ${dir}`)
 	const dirFiles = await fs.readdir(dir, { withFileTypes: true })
 	const filePromises = dirFiles.map((file) => {
 		const res = path.resolve(dir, file.name)

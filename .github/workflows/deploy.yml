@@ -8,8 +8,10 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest        
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -30,7 +32,6 @@ jobs:
 
       - name: Run deploy command
         env:
-          BUCKET: ${{ secrets.THEO_LIVE_DEMO_BUCKET }}
-          BUILD_DIR: ${{ secrets.THEO_LIVE_DEMO_BUILD_FOLDER }}
+          BUCKET: ${{ vars.THEO_LIVE_DEMO_BUCKET }}
           CLOUD_FRONT_ID: ${{secrets.THEO_LIVE_DEMO_CLOUD_FRONT_ID}}
-        run: npm run deploy -- ${BUCKET} ${BUILD_DIR} ${CLOUD_FRONT_ID}
+        run: npm run deploy -- ${BUCKET} ${CLOUD_FRONT_ID}
