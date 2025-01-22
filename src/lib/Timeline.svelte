@@ -6,6 +6,11 @@
 	let canvasElement: HTMLCanvasElement | undefined = $state()
 
 	let chart: Chart<'bar', number[], Date> | undefined
+	let hidden = $state(false)
+
+	function toggle() {
+		hidden = !hidden
+	}
 
 	onMount(() => {
 		const intervalID = setInterval(() => {
@@ -90,22 +95,43 @@
 	})
 </script>
 
-<section>
+<section class:hidden>
 	<h2>Latencies</h2>
 	<canvas bind:this={canvasElement}></canvas>
+	<button id="toggle" onclick={toggle}>&rsaquo;</button>
 </section>
 
 <style>
 	section {
-		background-color: rgb(0, 0, 0, 0.3);
-		border-radius: 4px;
 		padding: 1rem;
 		position: relative;
 	}
 
-	@media screen and (min-width: 600px) {
-		section {
-			width: calc(50vw - 2rem);
+	section,
+	#toggle {
+		border-radius: var(--elem-radius) 0 0 var(--elem-radius);
+		background-color: rgb(0, 0, 0, 0.3);
+		transition: transform 500ms ease;
+	}
+
+	#toggle {
+		--offset: translate(-100%, -50%);
+		display: none;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		padding: 0.5rem;
+		transform: var(--offset);
+		border: none;
+		color: white;
+		cursor: pointer;
+	}
+
+	section.hidden {
+		transform: translateX(100%);
+
+		#toggle {
+			transform: var(--offset) scaleX(-1);
 		}
 	}
 
@@ -114,6 +140,15 @@
 		font-size: medium;
 		font-weight: normal;
 		text-align: center;
-		color: white;
+	}
+
+	@media screen and (min-width: 600px) {
+		section {
+			width: calc(50vw - 2rem);
+		}
+
+		#toggle {
+			display: block;
+		}
 	}
 </style>

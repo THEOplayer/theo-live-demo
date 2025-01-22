@@ -75,6 +75,7 @@
 		background-color: rgb(0, 0, 0, 0.3);
 		padding: 1rem;
 		width: 100%;
+		border-radius: 0 var(--elem-radius) var(--elem-radius) 0;
 	}
 
 	th {

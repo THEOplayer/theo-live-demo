@@ -60,4 +60,9 @@
 			padding-top: 0;
 		}
 	}
+
+	/* Makes the player setting menu appear on top of the footer */
+	:global(.theo-menu-animation-container) {
+		z-index: 100;
+	}
 </style>

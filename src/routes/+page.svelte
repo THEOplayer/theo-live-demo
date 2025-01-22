@@ -25,6 +25,11 @@
 	})
 </script>
 
+<svelte:head>
+	<title>THEOLive demo</title>
+	<meta name="description" content="THEOLive demo" />
+</svelte:head>
+
 <main>
 	<header>
 		<h1 class="channel">{channelId}</h1>
@@ -74,6 +79,7 @@
 			align-items: flex-end;
 			justify-content: space-between;
 			gap: 1rem;
+			overflow-x: hidden;
 		}
 	}
 </style>
