@@ -98,7 +98,7 @@
 <style>
 	section {
 		background-color: rgb(0, 0, 0, 0.3);
-		border-radius: 4px;
+		border-radius: var(--elem-radius) 0 0 var(--elem-radius);
 		padding: 1rem;
 		position: relative;
 	}

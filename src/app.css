@@ -1,5 +1,9 @@
 @import 'normalize.css';
 
+:root {
+	--elem-radius: 0.25rem;
+}
+
 html {
 	font-family: Arial, sans-serif;
 	box-sizing: border-box;
