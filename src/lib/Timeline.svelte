@@ -113,11 +113,6 @@
 		background-color: rgb(0, 0, 0, 0.3);
 	}
 
-	section,
-	#toggle span {
-		transition: transform 500ms ease;
-	}
-
 	#toggle {
 		display: none;
 		position: absolute;
@@ -144,6 +139,11 @@
 	@media screen and (min-width: 600px) {
 		section {
 			width: calc(50vw - 2rem);
+		}
+
+		section,
+		#toggle span {
+			transition: transform 500ms ease;
 		}
 
 		section.hidden {
