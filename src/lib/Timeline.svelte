@@ -98,7 +98,7 @@
 <section class:hidden>
 	<h2>Latencies</h2>
 	<canvas bind:this={canvasElement}></canvas>
-	<button id="toggle" onclick={toggle}>&rsaquo;</button>
+	<button id="toggle" onclick={toggle}><span>&rsaquo;</span></button>
 </section>
 
 <style>
@@ -111,27 +111,21 @@
 	#toggle {
 		border-radius: var(--elem-radius) 0 0 var(--elem-radius);
 		background-color: rgb(0, 0, 0, 0.3);
-		transition: transform 500ms ease;
 	}
 
 	#toggle {
-		--offset: translate(-100%, -50%);
 		display: none;
 		position: absolute;
 		left: 0;
 		top: 50%;
 		padding: 0.5rem;
-		transform: var(--offset);
+		transform: translate(-100%, -50%);
 		border: none;
 		color: white;
 		cursor: pointer;
-	}
 
-	section.hidden {
-		transform: translateX(100%);
-
-		#toggle {
-			transform: var(--offset) scaleX(-1);
+		span {
+			display: inline-block;
 		}
 	}
 
@@ -145,6 +139,19 @@
 	@media screen and (min-width: 600px) {
 		section {
 			width: calc(50vw - 2rem);
+		}
+
+		section,
+		#toggle span {
+			transition: transform 500ms ease;
+		}
+
+		section.hidden {
+			transform: translateX(100%);
+
+			#toggle span {
+				transform: scaleX(-1);
+			}
 		}
 
 		#toggle {
