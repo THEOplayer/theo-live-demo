@@ -134,14 +134,6 @@
 		}
 	}
 
-	section.hidden {
-		transform: translateX(100%);
-
-		#toggle span {
-			transform: scaleX(-1);
-		}
-	}
-
 	h2 {
 		margin: 0;
 		font-size: medium;
@@ -152,6 +144,14 @@
 	@media screen and (min-width: 600px) {
 		section {
 			width: calc(50vw - 2rem);
+		}
+
+		section.hidden {
+			transform: translateX(100%);
+
+			#toggle span {
+				transform: scaleX(-1);
+			}
 		}
 
 		#toggle {
