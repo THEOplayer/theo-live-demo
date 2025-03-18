@@ -26,7 +26,7 @@
 						latencies.distribution !== undefined
 							? Math.round(latencies.distribution * 1000)
 							: undefined
-					const backend = Math.round(latencies.backend * 1000)
+					const backend = Math.round(latencies.engine * 1000)
 					const bufferLatency = Math.round(latencies.player * 1000)
 					while (labels.length > 0 && differenceInMinutes(now, labels[0]) >= 1) {
 						labels.shift()
@@ -49,7 +49,7 @@
 			data: {
 				labels: [],
 				datasets: [
-					{ label: 'Backend', data: [], backgroundColor: '#ffc713' },
+					{ label: 'Engine', data: [], backgroundColor: '#ffc713' },
 					{ label: 'Distribution', data: [], backgroundColor: '#1362ff' },
 					{ label: 'Player buffer', data: [], backgroundColor: '#344a5e' }
 				]
