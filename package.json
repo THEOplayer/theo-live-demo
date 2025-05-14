@@ -1,6 +1,6 @@
 {
 	"name": "demo",
-	"version": "3.20.5",
+	"version": "3.20.6",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -41,6 +41,6 @@
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"date-fns": "^3.6.0",
 		"normalize.css": "^8.0.1",
-		"theoplayer": "^9.3.2"
+		"theoplayer": "file:theoplayer-9.3.2.tgz"
 	}
 }

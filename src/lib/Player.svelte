@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state'
 	import { onDestroy, onMount } from 'svelte'
 	import { Player } from 'theoplayer'
 	import { LICENSE } from '$lib/license'
@@ -6,16 +7,15 @@
 
 	interface Props {
 		channel: string | undefined
-		externalSessionId: string | undefined
 	}
 
-	let { channel, externalSessionId }: Props = $props()
+	let { channel }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
 	onMount(() => {
 		if (player || !playerElement) return
-
+		const params = new URLSearchParams(page.url.searchParams)
 		const newPlayer = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
@@ -24,7 +24,7 @@
 				fluid: true
 			},
 			theoLive: {
-				externalSessionId,
+				externalSessionId: params.get('externalSessionId') ?? undefined,
 			}
 		})
 		newPlayer.autoplay = true
