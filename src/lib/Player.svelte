@@ -24,7 +24,7 @@
 				fluid: true
 			},
 			theoLive: {
-				externalSessionId: externalSessionId,
+				externalSessionId,
 			}
 		})
 		newPlayer.autoplay = true
