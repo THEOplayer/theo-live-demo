@@ -6,9 +6,10 @@
 
 	interface Props {
 		channel: string | undefined
+		externalSessionId: string | undefined
 	}
 
-	let { channel }: Props = $props()
+	let { channel, externalSessionId }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
@@ -21,6 +22,9 @@
 			retryConfiguration: { maxRetries: 6 },
 			ui: {
 				fluid: true
+			},
+			theoLive: {
+				externalSessionId: externalSessionId,
 			}
 		})
 		newPlayer.autoplay = true
