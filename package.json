@@ -13,10 +13,10 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@eslint/compat": "^1.2.5",
-		"@eslint/js": "^9.18.0",
 		"@aws-sdk/client-cloudfront": "^3.624.0",
 		"@aws-sdk/client-s3": "^3.624.0",
+		"@eslint/compat": "^1.2.5",
+		"@eslint/js": "^9.18.0",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "^2.5.27",
 		"@sveltejs/vite-plugin-svelte": "^4.0.4",
@@ -41,6 +41,6 @@
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"date-fns": "^3.6.0",
 		"normalize.css": "^8.0.1",
-		"theoplayer": "^8.14.0"
+		"theoplayer": "^9.3.2"
 	}
 }
