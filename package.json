@@ -1,6 +1,6 @@
 {
 	"name": "demo",
-	"version": "3.20.4",
+	"version": "3.20.5",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
