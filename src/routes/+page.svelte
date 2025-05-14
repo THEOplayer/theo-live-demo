@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte'
 
 	let channelId: string | undefined = $state(undefined)
+	let externalSessionId: string | undefined = $state(undefined)
 
 	onMount(() => {
 		if (!browser) return
@@ -22,6 +23,7 @@
 		if (!browser) return
 		const searchParams = new URLSearchParams(page.url.searchParams)
 		channelId = searchParams.get('channel') ?? undefined
+		externalSessionId = searchParams.get('externalSessionId') ?? undefined
 	})
 </script>
 
@@ -34,7 +36,7 @@
 	<header>
 		<h1 class="channel">{channelId}</h1>
 	</header>
-	<Player channel={channelId} />
+	<Player channel={channelId} externalSessionId={externalSessionId} />
 	<footer>
 		<Stats />
 		<Timeline />
