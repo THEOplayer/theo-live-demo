@@ -24,7 +24,7 @@
 				fluid: true
 			},
 			theoLive: {
-				externalSessionId: params.get('externalSessionId') ?? undefined,
+				externalSessionId: params.get('externalSessionId') ?? undefined
 			}
 		})
 		newPlayer.autoplay = true
