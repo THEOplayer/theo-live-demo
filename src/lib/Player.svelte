@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { onDestroy, onMount } from 'svelte'
-	import { Player } from 'theoplayer'
+	import { Player, type TheoLiveConfiguration } from 'theoplayer'
 	import { LICENSE } from '$lib/license'
 	import 'theoplayer/ui.css'
 
 	interface Props {
-		channel: string | undefined
+		src: string | undefined
 	}
 
-	let { channel }: Props = $props()
+	let { src }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 	let player: Player | undefined
 
@@ -19,13 +19,15 @@
 		const newPlayer = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
-			retryConfiguration: { maxRetries: 6 },
 			ui: {
 				fluid: true
 			},
 			theoLive: {
+				discoveryUrls: params.has('distribution')
+					? ['https://discovery.theo.live/v2/distributions/', 'https://discovery.sneezysparrow.com/v2/distributions/']
+					: ['https://discovery.theo.live/channels/', 'https://discovery.sneezysparrow.com/channels/'],
 				externalSessionId: params.get('externalSessionId') ?? undefined
-			}
+			} as TheoLiveConfiguration
 		})
 		newPlayer.autoplay = true
 		newPlayer.muted = true
@@ -42,11 +44,15 @@
 
 	$effect(() => {
 		if (!player) return
-		player.source = {
-			sources: {
-				src: channel,
-				integration: 'theolive'
+		if (src) {
+			player.source = {
+				sources: {
+					src,
+					type: 'theolive'
+				}
 			}
+		} else {
+			player.source = undefined
 		}
 	})
 </script>
@@ -54,19 +60,19 @@
 <div id="player" bind:this={playerElement} class="player-container video-js theoplayer-skin"></div>
 
 <style>
-	.player-container {
-		width: 100%;
-	}
+    .player-container {
+        width: 100%;
+    }
 
-	@media screen and (min-width: 600px) {
-		.player-container {
-			height: 100%;
-			padding-top: 0;
-		}
-	}
+    @media screen and (min-width: 600px) {
+        .player-container {
+            height: 100%;
+            padding-top: 0;
+        }
+    }
 
-	/* Makes the player setting menu appear on top of the footer */
-	:global(.theo-menu-animation-container) {
-		z-index: 100;
-	}
+    /* Makes the player setting menu appear on top of the footer */
+    :global(.theo-menu-animation-container) {
+        z-index: 100;
+    }
 </style>

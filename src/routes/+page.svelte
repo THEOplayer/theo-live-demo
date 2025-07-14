@@ -9,11 +9,12 @@
 	import { onMount } from 'svelte'
 
 	let channelId: string | undefined = $state(undefined)
+	let distributionId: string | undefined = $state(undefined)
 
 	onMount(() => {
 		if (!browser) return
 		const searchParams = new URLSearchParams(page.url.searchParams)
-		if (!searchParams.has('channel')) {
+		if (!searchParams.has('channel') && !searchParams.has('distribution')) {
 			goto('?channel=ar5c53uzm3si4h4zgkzrju44h')
 		}
 	})
@@ -21,6 +22,7 @@
 	$effect(() => {
 		if (!browser) return
 		const searchParams = new URLSearchParams(page.url.searchParams)
+		distributionId = searchParams.get('distribution') ?? undefined
 		channelId = searchParams.get('channel') ?? undefined
 	})
 </script>
@@ -32,9 +34,9 @@
 
 <main>
 	<header>
-		<h1 class="channel">{channelId}</h1>
+		<h1 class="channel">{distributionId ?? channelId}</h1>
 	</header>
-	<Player channel={channelId} />
+	<Player src={distributionId ?? channelId} />
 	<footer>
 		<Stats />
 		<Timeline />
