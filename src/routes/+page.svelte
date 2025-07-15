@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Player from '$lib/Player.svelte'
+	import PlayerView from '$lib/PlayerView.svelte'
 	import Timeline from '$lib/Timeline.svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
@@ -7,9 +7,11 @@
 
 	import Stats from '$lib/Stats.svelte'
 	import { onMount } from 'svelte'
+	import type { Player, PublicationLoadedEvent } from 'theoplayer'
 
-	let channelId: string | undefined = $state(undefined)
-	let distributionId: string | undefined = $state(undefined)
+	let channelName: string | undefined = $state(undefined)
+	let src: string | undefined = $state(undefined)
+	let player: Player | undefined = $state(undefined)
 
 	onMount(() => {
 		if (!browser) return
@@ -22,21 +24,32 @@
 	$effect(() => {
 		if (!browser) return
 		const searchParams = new URLSearchParams(page.url.searchParams)
-		distributionId = searchParams.get('distribution') ?? undefined
-		channelId = searchParams.get('channel') ?? undefined
+		src = searchParams.get('distribution') ?? searchParams.get('channel') ?? undefined
+	})
+
+	function handlePublicationLoaded(event: PublicationLoadedEvent) {
+		channelName = event.channelName
+	}
+
+	$effect(() => {
+		if (!player) return
+		player.theoLive!.addEventListener('publicationloaded', handlePublicationLoaded)
+		return () => {
+			player?.theoLive!.removeEventListener('publicationloaded', handlePublicationLoaded)
+		}
 	})
 </script>
 
 <svelte:head>
-	<title>THEOLive demo</title>
+	<title>{channelName ?? 'OptiView Live demo'}</title>
 	<meta name="description" content="THEOLive demo" />
 </svelte:head>
 
 <main>
 	<header>
-		<h1 class="channel">{distributionId ?? channelId}</h1>
+		<h1 class="channel">{channelName}</h1>
 	</header>
-	<Player src={distributionId ?? channelId} />
+	<PlayerView {src} bind:player />
 	<footer>
 		<Stats />
 		<Timeline />

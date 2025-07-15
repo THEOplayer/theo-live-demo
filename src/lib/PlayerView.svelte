@@ -7,16 +7,16 @@
 
 	interface Props {
 		src: string | undefined
+		player: Player | undefined
 	}
 
-	let { src }: Props = $props()
+	let { src, player = $bindable() }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
-	let player: Player | undefined
 
 	onMount(() => {
 		if (player || !playerElement) return
 		const params = new URLSearchParams(page.url.searchParams)
-		const newPlayer = new Player(playerElement, {
+		player = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
 			ui: {
@@ -29,10 +29,9 @@
 				externalSessionId: params.get('externalSessionId') ?? undefined
 			} as TheoLiveConfiguration
 		})
-		newPlayer.autoplay = true
-		newPlayer.muted = true
-		window.player = newPlayer
-		player = newPlayer
+		player.autoplay = true
+		player.muted = true
+		window.player = player
 	})
 
 	onDestroy(() => {
