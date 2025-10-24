@@ -7,16 +7,18 @@
 
 	interface Props {
 		src: string | undefined
+		authToken: string | undefined
 		player: Player | undefined
 	}
 
-	let { src, player = $bindable() }: Props = $props()
+	let { src, authToken, player = $bindable() }: Props = $props()
 	let playerElement: HTMLElement | undefined = $state()
 
 	onMount(() => {
 		if (player || !playerElement) return
 		const params = new URLSearchParams(page.url.searchParams)
-		player = new Player(playerElement, {
+		authToken = params.has('authToken') ? params.get('authToken')! : undefined
+ 		player = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
 			ads: { theoads: true },
@@ -56,6 +58,9 @@
 					src,
 					type: 'theolive'
 				}
+			}
+			if(player.theoLive && authToken) {
+				player.theoLive.authToken = authToken
 			}
 		} else {
 			player.source = undefined
