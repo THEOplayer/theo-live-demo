@@ -40,6 +40,9 @@
 		})
 		player.autoplay = true
 		player.muted = true
+		if (player.theoLive && authToken) {
+			player.theoLive.authToken = authToken
+		}
 		window.player = player
 	})
 
