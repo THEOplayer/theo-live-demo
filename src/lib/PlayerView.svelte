@@ -24,8 +24,14 @@
 			},
 			theoLive: {
 				discoveryUrls: params.has('distribution')
-					? ['https://discovery.theo.live/v2/distributions/', 'https://discovery.sneezysparrow.com/v2/distributions/']
-					: ['https://discovery.theo.live/channels/', 'https://discovery.sneezysparrow.com/channels/'],
+					? [
+							'https://discovery.theo.live/v2/distributions/',
+							'https://discovery.sneezysparrow.com/v2/distributions/'
+						]
+					: [
+							'https://discovery.theo.live/channels/',
+							'https://discovery.sneezysparrow.com/channels/'
+						],
 				externalSessionId: params.get('externalSessionId') ?? undefined
 			} as TheoLiveConfiguration
 		})
@@ -59,19 +65,19 @@
 <div id="player" bind:this={playerElement} class="player-container video-js theoplayer-skin"></div>
 
 <style>
-    .player-container {
-        width: 100%;
-    }
+	.player-container {
+		width: 100%;
+	}
 
-    @media screen and (min-width: 600px) {
-        .player-container {
-            height: 100%;
-            padding-top: 0;
-        }
-    }
+	@media screen and (min-width: 600px) {
+		.player-container {
+			height: 100%;
+			padding-top: 0;
+		}
+	}
 
-    /* Makes the player setting menu appear on top of the footer */
-    :global(.theo-menu-animation-container) {
-        z-index: 100;
-    }
+	/* Makes the player setting menu appear on top of the footer */
+	:global(.theo-menu-animation-container) {
+		z-index: 100;
+	}
 </style>
