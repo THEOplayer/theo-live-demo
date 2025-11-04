@@ -19,6 +19,7 @@
 		player = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
+			ads: { theoads: true },
 			ui: {
 				fluid: true
 			},
