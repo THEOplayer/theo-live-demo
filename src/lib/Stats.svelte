@@ -1,19 +1,24 @@
 <script lang="ts">
-	import { type Latencies, version } from 'theoplayer/chromeless'
+	import { type Latencies, version, type Player, type Endpoint } from 'theoplayer/chromeless'
+
+	interface Props {
+		endpoint?: Endpoint
+		player?: Player
+	}
 
 	interface Info {
 		rate: number
 		latency?: Latencies
 		quality?: string
 		dimension: string
-		targetLatency: number
+		targetLatency?: number
 	}
 
+	let { endpoint, player }: Props = $props()
 	let info: Info | null = $state(null)
 
 	$effect(() => {
 		const intervalId = setInterval(() => {
-			const player = window.player
 			const video = document.querySelector('video[src]') as HTMLVideoElement
 			if (video && player) {
 				info = {
@@ -21,7 +26,7 @@
 					latency: player.hesp!.latencies,
 					quality: player.videoTracks.item(0).activeQuality?.id,
 					dimension: `${video.clientWidth} x ${video.clientHeight}`,
-					targetLatency: player.latency.currentConfiguration.targetOffset
+					targetLatency: player.latency.currentConfiguration?.targetOffset
 				}
 			} else {
 				info = null
@@ -37,6 +42,12 @@
 			<th scope="row">Version</th>
 			<td>{version}</td>
 		</tr>
+		{#if endpoint != null}
+			<tr>
+				<th scope="row">CDN</th>
+				<td>{endpoint.cdn}</td>
+			</tr>
+		{/if}
 		{#if info != null}
 			<tr>
 				<th scope="row">Playback rate</th>
@@ -56,7 +67,7 @@
 			</tr>
 			<tr>
 				<th scope="row">Target latency</th>
-				<td>{Math.round(1000 * info.targetLatency)}</td>
+				<td>{Math.round(1000 * (info.targetLatency ?? 0))}</td>
 			</tr>
 			<tr>
 				<th scope="row">Quality</th>
