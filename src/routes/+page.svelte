@@ -7,9 +7,9 @@
 
 	import Stats from '$lib/Stats.svelte'
 	import { onMount } from 'svelte'
-	import type { Player, PublicationLoadedEvent } from 'theoplayer'
+	import type { Endpoint, EndpointLoadedEvent, Player } from 'theoplayer'
 
-	let channelName: string | undefined = $state(undefined)
+	let endpoint: Endpoint | undefined = $state(undefined)
 	let src: string | undefined = $state(undefined)
 	let player: Player | undefined = $state(undefined)
 
@@ -27,46 +27,34 @@
 		src = searchParams.get('distribution') ?? searchParams.get('channel') ?? undefined
 	})
 
-	function handlePublicationLoaded(event: PublicationLoadedEvent) {
-		channelName = event.channelName
+	function onEndpointLoaded(event: EndpointLoadedEvent) {
+		console.log('Endpoint loaded', event)
+		endpoint = event.endpoint
 	}
 
 	$effect(() => {
 		if (!player) return
-		player.theoLive!.addEventListener('publicationloaded', handlePublicationLoaded)
+		player.theoLive!.addEventListener('endpointloaded', onEndpointLoaded)
 		return () => {
-			player?.theoLive!.removeEventListener('publicationloaded', handlePublicationLoaded)
+			player?.theoLive!.removeEventListener('endpointloaded', onEndpointLoaded)
 		}
 	})
 </script>
 
 <svelte:head>
-	<title>{channelName ?? 'OptiView Live demo'}</title>
+	<title>OptiView Live demo</title>
 	<meta name="description" content="THEOLive demo" />
 </svelte:head>
 
 <main>
-	<header>
-		<h1 class="channel">{channelName}</h1>
-	</header>
 	<PlayerView {src} bind:player />
 	<footer>
-		<Stats />
+		<Stats {endpoint} {player} />
 		<Timeline />
 	</footer>
 </main>
 
 <style lang="css">
-	h1 {
-		font-weight: 400;
-		font-size: 1.5rem;
-		margin: 0;
-	}
-
-	header {
-		padding: 1rem;
-	}
-
 	main {
 		width: 100%;
 	}
@@ -76,16 +64,11 @@
 			height: 100%;
 		}
 
-		header,
 		footer {
 			position: absolute;
 			left: 0;
 			right: 0;
 			z-index: 1;
-		}
-
-		header {
-			top: 0;
 		}
 
 		footer {
