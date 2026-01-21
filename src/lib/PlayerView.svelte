@@ -6,9 +6,9 @@
 	import 'theoplayer/ui.css'
 
 	interface Props {
-		src: string | undefined
-		authToken: string | undefined
-		player: Player | undefined
+		src?: string
+		authToken?: string
+		player?: Player
 	}
 
 	let { src, authToken, player = $bindable() }: Props = $props()
@@ -16,9 +16,8 @@
 
 	onMount(() => {
 		if (player || !playerElement) return
-		const params = new URLSearchParams(page.url.searchParams)
-		authToken = params.has('authToken') ? params.get('authToken')! : undefined
- 		player = new Player(playerElement, {
+		const searchParams = new URLSearchParams(page.url.searchParams)
+		player = new Player(playerElement, {
 			license: LICENSE,
 			mutedAutoplay: 'all',
 			ads: { theoads: true },
@@ -26,23 +25,11 @@
 				fluid: true
 			},
 			theoLive: {
-				discoveryUrls: params.has('distribution')
-					? [
-							'https://discovery.theo.live/v2/distributions/',
-							'https://discovery.sneezysparrow.com/v2/distributions/'
-						]
-					: [
-							'https://discovery.theo.live/channels/',
-							'https://discovery.sneezysparrow.com/channels/'
-						],
-				externalSessionId: params.get('externalSessionId') ?? undefined
+				discoveryUrls: ['https://discovery.sneezysparrow.com/v2/distributions/'],
+				externalSessionId: searchParams.get('externalSessionId') ?? undefined
 			} as TheoLiveConfiguration
 		})
 		player.autoplay = true
-		player.muted = true
-		if (player.theoLive && authToken) {
-			player.theoLive.authToken = authToken
-		}
 		window.player = player
 	})
 
@@ -54,16 +41,14 @@
 	})
 
 	$effect(() => {
-		if (!player) return
+		if (!player?.theoLive) return
+		player.theoLive.authToken = authToken
 		if (src) {
 			player.source = {
 				sources: {
 					src,
 					type: 'theolive'
 				}
-			}
-			if(player.theoLive && authToken) {
-				player.theoLive.authToken = authToken
 			}
 		} else {
 			player.source = undefined

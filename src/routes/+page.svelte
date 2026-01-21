@@ -12,6 +12,7 @@
 	let endpoint: Endpoint | undefined = $state(undefined)
 	let src: string | undefined = $state(undefined)
 	let player: Player | undefined = $state(undefined)
+	let authToken: string | undefined = $state()
 
 	onMount(() => {
 		if (!browser) return
@@ -25,6 +26,7 @@
 		if (!browser) return
 		const searchParams = new URLSearchParams(page.url.searchParams)
 		src = searchParams.get('distribution') ?? searchParams.get('channel') ?? undefined
+		authToken = searchParams.get('authToken') ?? undefined
 	})
 
 	function onEndpointLoaded(event: EndpointLoadedEvent) {
@@ -47,10 +49,10 @@
 </svelte:head>
 
 <main>
-	<PlayerView {src} bind:player />
+	<PlayerView {src} {authToken} bind:player />
 	<footer>
 		<Stats {endpoint} {player} />
-		<Timeline />
+		<Timeline {player} />
 	</footer>
 </main>
 

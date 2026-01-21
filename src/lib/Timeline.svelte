@@ -2,11 +2,17 @@
 	import { onMount } from 'svelte'
 	import { Chart } from 'chart.js'
 	import { differenceInMinutes } from 'date-fns/differenceInMinutes'
+	import type { Player } from 'theoplayer/chromeless'
+
+	interface Props {
+		player?: Player
+	}
 
 	let canvasElement: HTMLCanvasElement | undefined = $state()
 
 	let chart: Chart<'bar', number[], Date> | undefined
 	let hidden = $state(false)
+	let { player }: Props = $props()
 
 	function toggle() {
 		hidden = !hidden
@@ -14,30 +20,27 @@
 
 	onMount(() => {
 		const intervalID = setInterval(() => {
-			if (!chart) return
+			if (!chart || !player || player.paused) return
 			const { datasets } = chart.data
 			const labels = chart.data.labels!
-			const player = window.player
-			if (player && !player.paused) {
-				const now = new Date()
-				const latencies = player?.hesp?.latencies
-				if (latencies) {
-					const distribution =
-						latencies.distribution !== undefined
-							? Math.round(latencies.distribution * 1000)
-							: undefined
-					const backend = Math.round(latencies.engine * 1000)
-					const bufferLatency = Math.round(latencies.player * 1000)
-					while (labels.length > 0 && differenceInMinutes(now, labels[0]) >= 1) {
-						labels.shift()
-						datasets.forEach(({ data }) => data.shift())
-					}
-					labels.push(now)
-					datasets[0].data.push(backend)
-					datasets[1].data.push(distribution ?? 0)
-					datasets[2].data.push(bufferLatency)
-					chart.update()
+			const now = new Date()
+			const latencies = player?.hesp?.latencies
+			if (latencies) {
+				const distribution =
+					latencies.distribution !== undefined
+						? Math.round(latencies.distribution * 1000)
+						: undefined
+				const backend = Math.round(latencies.engine * 1000)
+				const bufferLatency = Math.round(latencies.player * 1000)
+				while (labels.length > 0 && differenceInMinutes(now, labels[0]) >= 1) {
+					labels.shift()
+					datasets.forEach(({ data }) => data.shift())
 				}
+				labels.push(now)
+				datasets[0].data.push(backend)
+				datasets[1].data.push(distribution ?? 0)
+				datasets[2].data.push(bufferLatency)
+				chart.update()
 			}
 		}, 500)
 		return () => clearInterval(intervalID)
